@@ -15,10 +15,8 @@ public function updateUsers($users)
 
 public function storeUsers($users)
 {
-    $dataToStore = $this->prepareDataToStore($users);
-
     try {
-        DB::table('users')->insert($dataToStore);
+        DB::table('users')->insert($this->prepareDataToStore($users));
         $this->sendEmail($users);
     } catch (\Throwable $e) {
         return Redirect::back()->withErrors(['error' => 'We couldn\'t store users']);
